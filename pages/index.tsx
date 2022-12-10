@@ -69,7 +69,7 @@ const Home: NextPage = () => {
           </pre>
           <hr />
           <pre>
-            <code className=' language-js'>const a = 1;</code>
+            <code className=' language-js'>const a = () =&gt; 1;</code>
           </pre>
         </div>
       </main>
