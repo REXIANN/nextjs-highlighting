@@ -2,8 +2,54 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { useEffect } from "react";
+
+
+const FAKE_DATA = {
+  result: true,
+  data: [
+    {
+      id: 1234,
+      name: "son heungmin",
+      age: 31,
+      hasPet: true,
+      lists: ["hello", 123, true]
+    },
+    {
+      id: 4614,
+      name: "hwang heechan",
+      age: 28,
+      hasPet: true,
+      lists: ["hello", 123, true]
+    },
+    {
+      id: 4369,
+      name: "kim minjae",
+      age: 26,
+      hasPet: false,
+      lists: ["hello", 123, true]
+    }
+  ]
+}
+
+declare global {
+  interface Window {
+    Prism: {
+      highlightAll: () => void;
+    }
+  }
+}
 
 const Home: NextPage = () => {
+  const stringData = JSON.stringify(FAKE_DATA, null, 2)
+
+  useEffect(() => {
+    const { Prism } = window
+    if (Prism != null) {
+      Prism.highlightAll();
+    }
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,54 +63,16 @@ const Home: NextPage = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className={styles.description}>
+          <pre className="line-numbers" data-line="3,4">
+            <code className=' language-json'>{stringData}</code>
+          </pre>
+          <hr />
+          <pre>
+            <code className=' language-js'>const a = 1;</code>
+          </pre>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   )
 }
